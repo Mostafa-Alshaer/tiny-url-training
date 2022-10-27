@@ -1,6 +1,7 @@
 package com.example.tinyurltraining.controller;
 
 import com.example.tinyurltraining.dto.UrlDto;
+import com.example.tinyurltraining.service.IURLService;
 import com.example.tinyurltraining.service.URLService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import java.net.URI;
 public class URLController {
 
     @Autowired
-    private URLService urlService;
+    private IURLService urlService;
 
     @Autowired
     private ModelMapper modelMapper;

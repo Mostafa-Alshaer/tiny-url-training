@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class URLService {
+public class URLService implements IURLService{
 
     final static private int BASE36_NUMBER = 36;
     private static long counter = 1;
