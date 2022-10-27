@@ -15,8 +15,9 @@ public class URLEntity {
     public URLEntity() {
     }
 
-    public URLEntity(String longURL) {
+    public URLEntity(String longURL, String key) {
         this.longURL = longURL;
+        this.key = key;
     }
 
     public String getId() {

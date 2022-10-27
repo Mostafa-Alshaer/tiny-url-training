@@ -1,27 +1,35 @@
 package com.example.tinyurltraining.controller;
 
-import com.example.tinyurltraining.entity.URLEntity;
+import com.example.tinyurltraining.dto.UrlDto;
 import com.example.tinyurltraining.service.URLService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.net.URI;
 
 @RestController
-@RequestMapping("/api/urls")
+@RequestMapping("/")
 public class URLController {
 
     @Autowired
     private URLService urlService;
 
-    // redirect api: no problem here, but we need to try to get from cache before trying to hit mongodb
+    @Autowired
+    private ModelMapper modelMapper;
 
-    // generate short url, the problem in getting small unique id as we are using mongodb -> the solution to create separate scalable sequencer service
+    @PostMapping()
+    public ResponseEntity addURLMapping(@RequestBody UrlDto urlDto){
+        UrlDto createdUrlDto = modelMapper.map(urlService.creatURLMapping(urlDto.getLongURL()), UrlDto.class);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(createdUrlDto);
+    }
 
-    @GetMapping()
-    public List<URLEntity> getAll(){
-        return urlService.getAll();
+    @GetMapping("/{key}")
+    public ResponseEntity redirect(@PathVariable String key){
+        return ResponseEntity.status(HttpStatus.PERMANENT_REDIRECT)
+                .location(URI.create(urlService.getURLByKey(key).getLongURL())).build();
     }
 }

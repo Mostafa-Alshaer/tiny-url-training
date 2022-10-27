@@ -4,4 +4,5 @@ import com.example.tinyurltraining.entity.URLEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface URLRepository extends MongoRepository<URLEntity, String>{
+    URLEntity findURLEntityByKey(String key);
 }

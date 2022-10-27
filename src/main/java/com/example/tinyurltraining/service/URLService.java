@@ -5,16 +5,21 @@ import com.example.tinyurltraining.repository.URLRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class URLService {
 
-    @Autowired
-    URLRepository urlRepository;
+    final static private int BASE36_NUMBER = 36;
+    private static long counter = 1;
 
-    public List<URLEntity> getAll(){
-        urlRepository.save(new URLEntity("hello url"));
-        return urlRepository.findAll();
+    @Autowired
+    private URLRepository urlRepository;
+
+    public URLEntity getURLByKey(String key){
+        return urlRepository.findURLEntityByKey(key);
+    }
+
+    public URLEntity creatURLMapping(String longURL){
+        URLEntity urlEntity = new URLEntity(longURL, Long.toString(counter++, BASE36_NUMBER));
+        return urlRepository.save(urlEntity);
     }
 }
