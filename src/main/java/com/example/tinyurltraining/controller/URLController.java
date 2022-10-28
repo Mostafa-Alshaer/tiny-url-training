@@ -23,6 +23,10 @@ public class URLController {
 
     @PostMapping()
     public ResponseEntity<UrlDto> addURLMapping(@RequestBody UrlDto urlDto){
+        //TODO: add url validation
+        //TODO: add exceptions handler using AOP
+        //TODO: use log messages
+        //TODO: review the code & make enhancements
         URLEntity urlEntity = urlService.creatURLMapping(urlDto.getLongURL());
         UrlDto createdUrlDto = modelMapper.map(urlEntity, UrlDto.class);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUrlDto);
