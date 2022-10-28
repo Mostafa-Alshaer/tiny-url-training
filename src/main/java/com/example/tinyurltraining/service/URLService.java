@@ -1,12 +1,13 @@
 package com.example.tinyurltraining.service;
 
 import com.example.tinyurltraining.entity.URLEntity;
+import com.example.tinyurltraining.exception.NotFoundException;
 import com.example.tinyurltraining.repository.URLRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class URLService implements IURLService{
+public class URLService{
 
     final static private int BASE36_NUMBER = 36;
     private static long counter = 1;
@@ -14,8 +15,14 @@ public class URLService implements IURLService{
     @Autowired
     private URLRepository urlRepository;
 
-    public URLEntity getURLByKey(String key){
-        return urlRepository.findURLEntityByKey(key);
+    public String getLongURLByKey(String key){
+        URLEntity urlEntity = urlRepository.findURLEntityByKey(key);
+
+        if(urlEntity == null){
+            throw new NotFoundException("The provided key doesn't exist!");
+        }
+
+        return urlEntity.getLongURL();
     }
 
     public URLEntity creatURLMapping(String longURL){
