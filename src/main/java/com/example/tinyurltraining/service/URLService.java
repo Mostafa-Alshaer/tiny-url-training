@@ -4,6 +4,7 @@ import com.example.tinyurltraining.entity.URLEntity;
 import com.example.tinyurltraining.exception.NotFoundException;
 import com.example.tinyurltraining.repository.URLRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +18,7 @@ public class URLService{
     @Autowired
     private SequencerService sequencerService;
 
+    @Cacheable( value="url", key="#key")
     public String getLongURLByKey(String key){
         URLEntity urlEntity = urlRepository.findURLEntityByKey(key);
 
