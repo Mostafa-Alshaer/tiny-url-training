@@ -2,7 +2,6 @@ package com.example.tinyurltraining.controller;
 
 import com.example.tinyurltraining.dto.UrlDto;
 import com.example.tinyurltraining.service.IURLService;
-import com.example.tinyurltraining.service.URLService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,10 +21,9 @@ public class URLController {
     private ModelMapper modelMapper;
 
     @PostMapping()
-    public ResponseEntity addURLMapping(@RequestBody UrlDto urlDto){
+    public ResponseEntity<UrlDto> addURLMapping(@RequestBody UrlDto urlDto){
         UrlDto createdUrlDto = modelMapper.map(urlService.creatURLMapping(urlDto.getLongURL()), UrlDto.class);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(createdUrlDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdUrlDto);
     }
 
     @GetMapping("/{key}")
