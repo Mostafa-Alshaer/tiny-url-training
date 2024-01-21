@@ -9,8 +9,8 @@ Welcome to the Tiny URL Training repository! This project is a simple URL shorte
 - [How It Works](#how-it-works)
 - [Getting Started](#getting-started)
 - [Usage](#usage)
+- [Scalability](#Scalability)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Introduction
 
